@@ -129,7 +129,8 @@ class company_data_extractor:
         dataset = pd.merge(predictors, dividends, left_on='year', right_on='year', how='left')
 
         # Drop first and last row as they contain nan
-        dataset.drop([0, 4], axis="rows", inplace=True)
+        last_row = len(dataset) - 1
+        dataset.drop([0, last_row], axis="rows", inplace=True)
         dataset.reset_index(drop=True, inplace=True)
 
         return dataset

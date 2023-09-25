@@ -12,13 +12,13 @@ warnings.filterwarnings('ignore')
 load_dotenv('.env')
 API_KEY_FRED = os.environ.get('API_KEY_FRED')
 API_KEY_FMP = os.environ.get('API_KEY_FMP')
-start_year = 2019
+start_year = 2017
 end_year = 2021
-num_of_years = 3
+num_of_years = end_year - start_year + 1
 
 BASE_URL = 'https://financialmodelingprep.com/api/v3'
 
-company_tick = "AIZ"
+company_tick = "AAPL"
 start_year = start_year - 1
 end_year = end_year + 1
 num_of_years = num_of_years + 2
@@ -99,6 +99,9 @@ fed_interest_rates = pd.DataFrame(response.json()['observations'])['value']
 predictors['interestRate'] = fed_interest_rates.astype("float64")
 
 predictor_names = list(predictors.columns)
+
+print(predictor_names)
+
 predictor_names.remove("year")
 predictor_names.remove("industry")
 predictor_names.remove("symbol")
@@ -126,5 +129,9 @@ predictors = compute_change(predictors, predictor_names)
 dataset = pd.merge(predictors, dividends, left_on='year', right_on='year', how='left')
 
 # Drop first and last row as they contain nan
-dataset.drop([0, 4], axis="rows", inplace=True)
+last_row = len(dataset) - 1
+dataset.drop([0, last_row], axis="rows", inplace=True)
 dataset.reset_index(drop=True, inplace=True)
+
+
+
