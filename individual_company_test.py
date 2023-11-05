@@ -105,6 +105,7 @@ print(predictor_names)
 predictor_names.remove("year")
 predictor_names.remove("industry")
 predictor_names.remove("symbol")
+predictor_names.remove("calendarYear")
 
 
 def compute_change(df, predictor_list):

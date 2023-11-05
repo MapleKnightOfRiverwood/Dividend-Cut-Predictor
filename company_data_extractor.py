@@ -54,7 +54,8 @@ class company_data_extractor:
             dividends['adjDividend'] > dividends['next_year_dividend'],
             dividends['adjDividend'] < dividends['next_year_dividend']
         ]
-        choices = [0, 1, 2]  # 0: DPS stayed constant
+        choices = [0, 1, 2]
+        # 0: DPS stayed constant
         # 1: DPS decreased
         # 2: DPS increased
 
@@ -107,6 +108,7 @@ class company_data_extractor:
         predictor_names.remove("year")
         predictor_names.remove("industry")
         predictor_names.remove("symbol")
+        predictor_names.remove("calendarYear")
 
         def compute_change(df, predictor_list):
             for predictor in predictor_list:
